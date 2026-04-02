@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacation Rental Fraud - What They Promised vs What We Got</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .lang-nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-nav a {
+            color: #a4b0be;
+            text-decoration: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .lang-nav a.active {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .warning-banner {
+            background: linear-gradient(90deg, #ff4757 0%, #ff6b81 100%);
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 span {
+            color: #ff4757;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a4b0be;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .summary-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .issues-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .issue-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .issue-item::before {
+            content: "⚠️";
+            font-size: 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+        }
+
+        .promised h2 {
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .reality h2 {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .image-card .caption {
+            padding: 1rem;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .promised .image-card {
+            border: 2px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .reality .image-card {
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #ff6b81;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-side h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-side.promise h3 {
+            color: #2ecc71;
+        }
+
+        .comparison-side.got h3 {
+            color: #e74c3c;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            color: #a4b0be;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box a.property-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: background 0.2s;
+        }
+
+        .cta-box a.property-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .booking-screenshot {
+            margin-top: 1.5rem;
+        }
+
+        .booking-screenshot img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="lang-nav">
+        <a href="your-house-podrit.html">Français</a>
+        <a href="your-house-podrit-es.html">Español</a>
+        <a href="your-house-podrit-val.html">Valencià</a>
+        <a href="your-house-podrit-nl.html">Nederlands</a>
+        <a href="your-house-podrit-de.html">Deutsch</a>
+        <a href="your-house-podrit-ru.html">Русский</a>
+        <a href="your-house-podrit-en.html" class="active">English</a>
+    </nav>
+
+    <div class="warning-banner">
+        ⚠️ Vacation Rental Fraud Alert - Do Not Rent This Property ⚠️
+    </div>
+
+    <header>
+        <h1>Your House <span>Pourri</span></h1>
+        <p class="subtitle">
+            I rented what I thought was a beautiful Mediterranean villa for my vacation.
+            Instead, I arrived to find a cold, humid, poorly maintained house infested with stray cats
+            and dangerous electrical hazards. This is my documented evidence of vacation rental fraud.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="summary-box">
+            <h2>Critical Issues Found Upon Arrival</h2>
+            <p>The property advertised was completely misrepresented. Here are the major problems discovered:</p>
+            <div class="issues-list">
+                <div class="issue-item">No functioning heating - freezing cold</div>
+                <div class="issue-item">Severe humidity damage throughout</div>
+                <div class="issue-item">Peeling paint on walls and ceilings</div>
+                <div class="issue-item">Stray cats roaming the property</div>
+                <div class="issue-item">Dangerous exposed electrical wiring</div>
+                <div class="issue-item">Mold and mildew in bathrooms</div>
+                <div class="issue-item">Damaged/non-functional radiators</div>
+                <div class="issue-item">Filthy HVAC system</div>
+                <div class="issue-item">Strong smell of humidity everywhere</div>
+            </div>
+        </div>
+
+        <section class="promised">
+            <h2>✨ What They Promised - The Listing Photos</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                These are the photos from the rental listing - a beautiful, clean, modern Mediterranean villa
+                with spacious rooms, pool views, and all amenities working perfectly.
+            </p>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0226.PNG" alt="Promised living room">
+                    <div class="caption">Spacious, bright living room with clean white sofas, modern furniture, and pristine white tile floors</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0227.PNG" alt="Promised living area">
+                    <div class="caption">Open-plan living and dining area with elegant decor and natural light</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0228.PNG" alt="Promised bedroom">
+                    <div class="caption">Clean, modern bedroom with fresh linens, bedside tables, and working air conditioning</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0229.PNG" alt="Promised dining area">
+                    <div class="caption">Elegant dining area with art on walls and plenty of seating</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0230.PNG" alt="Promised living with fireplace">
+                    <div class="caption">Living room with stone fireplace, entertainment center, and pool views</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0231.PNG" alt="Promised dining with pool view">
+                    <div class="caption">Dining room with stunning pool and garden views through large windows</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0232.PNG" alt="Promised cozy corner">
+                    <div class="caption">Cozy living area with fireplace, comfortable seating, and working climate control</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reality">
+            <h2>💀 What We Actually Got - The Horrifying Reality</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                This is what we found upon arrival. The property was in a state of severe neglect,
+                with dangerous conditions that made it uninhabitable. These photos were taken immediately upon arrival.
+            </p>
+
+            <div class="category-section">
+                <h3>🌊 Severe Humidity & Water Damage</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    The entire house reeked of humidity. Walls and ceilings showed extensive water damage
+                    with bubbling, peeling, and cracking paint - a health hazard indicating mold issues.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/0e214178-3611-4162-9b34-05585e144272.JPG" alt="Humidity damage on wall">
+                        <div class="caption">Severe humidity damage on bedroom wall - paint bubbling and peeling from moisture</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/41aa2ff5-3fa8-48a6-b36f-4e179f5c012a.JPG" alt="Ceiling water damage">
+                        <div class="caption">Ceiling with extensive water damage - bubbling paint indicating serious leak issues</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c44e6579-95b5-4d79-942b-54a66ae1b523.JPG" alt="Peeling wall">
+                        <div class="caption">Wall with severe paint peeling and cracking from humidity damage</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c8a73310-6adf-479e-b22a-ec75974a22ff.JPG" alt="More wall damage">
+                        <div class="caption">Additional wall damage showing moisture infiltration</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/dfc0289d-750f-4af4-abe9-271165fa3f6f.JPG" alt="Wall cracking">
+                        <div class="caption">Cracking and peeling paint throughout the property</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/7420c99d-f012-4823-bd09-ec3b4d4d0764.JPG" alt="Patched wall">
+                        <div class="caption">Poorly patched wall with visible humidity stains and exposed plumbing</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/8500e283-9e6e-4d83-ab03-ca7d5c0cf411.JPG" alt="Stained wall">
+                        <div class="caption">Stained wall showing moisture damage under window area</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>⚡ Dangerous Electrical Hazards</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Multiple electrical fixtures were damaged, exposed, or non-functional -
+                    presenting serious safety hazards.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2b04c60b-aefb-4e18-b7ec-f47cae73804c.JPG" alt="Exposed electrical box">
+                        <div class="caption">Dangerous exposed electrical junction box next to bed - serious shock hazard</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/05ae22f7-fe41-42fa-b9fd-9e4c89dfee60.JPG" alt="Damaged wall near bed">
+                        <div class="caption">Damaged electrical area near bedroom headboard</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/54e79d9e-0805-4067-a08d-e62b5f036c10.JPG" alt="Dirty switches">
+                        <div class="caption">Filthy, yellowed light switches showing years of neglect</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/976eb02b-475f-4e46-a495-b09c5e907224.JPG" alt="Damaged outlet">
+                        <div class="caption">Damaged outlet with chipped wall and poor installation</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b66e8776-6e01-4fed-8212-0b95ff00e1bb.JPG" alt="Broken outlet">
+                        <div class="caption">Broken outlet hanging from wall - fire hazard</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>❄️ No Heating - Broken Radiators</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    The property was freezing cold with no functioning heating system.
+                    Radiator connections were damaged and leaking.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/98b7a822-4c7b-4ad9-8dee-2cf8f05a25f3.JPG" alt="Broken radiator">
+                        <div class="caption">Damaged radiator connection with rust stains and crumbling wall - not functioning</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e59b02d9-8731-4022-a0b3-b28fe671a9a9.JPG" alt="Dirty AC unit">
+                        <div class="caption">Filthy, yellowed air conditioning unit with dirty filters - clearly not maintained</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚿 Dirty Bathrooms with Mold</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Bathrooms were in poor condition with mold in grout, dirty surfaces,
+                    and cheap fixtures.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/19d382a8-0de5-4f02-b68d-fc3fc817bbb5.JPG" alt="Dirty bathroom">
+                        <div class="caption">Dirty bathroom counter with mold in grout lines</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/72ca0610-d80f-49c0-86c8-02994526d743.JPG" alt="Moldy bathroom">
+                        <div class="caption">More bathroom surfaces with visible mold and grime</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2cb65080-80c1-4348-95f2-bb506a5b7680.JPG" alt="Basic shower">
+                        <div class="caption">Basic, cheap shower setup - nothing like the advertised luxury</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e57cb140-84ad-4b90-8385-d106d9d03a31.JPG" alt="Bathroom">
+                        <div class="caption">Dated bathroom fixtures</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🐱 Stray Cats Everywhere</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    The property was overrun with stray cats roaming freely.
+                    This was never mentioned in the listing and presents hygiene concerns.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/74fbad76-0941-4bb5-a0f9-7bdf8c16a000.JPG" alt="Stray cats">
+                        <div class="caption">Stray cats roaming the property at night</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/869862e3-7f0e-4cba-b9f5-4d18cf6796fe.JPG" alt="More cats">
+                        <div class="caption">Multiple stray cats on the dirty patio</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b08d0e9c-cbf0-4d39-a616-e6f642835fc1.JPG" alt="Cats on patio">
+                        <div class="caption">Cats everywhere on deteriorating concrete surfaces</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚪 Poor Overall Condition</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    General neglect was visible throughout - worn closets, chipped paint,
+                    and an overall state of disrepair.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/39232b3a-5af5-4123-ba51-6297022b2118.JPG" alt="Old closets">
+                        <div class="caption">Old grey closets with padlocks - inaccessible storage</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Worn doors">
+                        <div class="caption">Worn closet doors with chipped paint and damaged frames</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h3>This Is Vacation Rental Fraud</h3>
+            <p style="margin-bottom: 1rem;">
+                The property advertised bears no resemblance to what was delivered.
+                This documentation serves as evidence for dispute resolution and to warn other travelers.
+            </p>
+            <p>
+                <strong>Do not rent this property.</strong> The listing photos are either from a different property
+                or taken years ago before the property fell into complete disrepair.
+            </p>
+            <a href="https://www.booking.com/hotel/es/yourhouse-can-marques-villa.fr.html?aid=898224&label=hotel_details-tvNjWOA%401775116548&sid=843f887a86e4b25ce9d8785265e10824&checkin=2026-04-02&checkout=2026-04-03&dist=0&from_sn=ios&group_adults=5&group_children=0&keep_landing=1&no_rooms=2&req_adults=5&req_children=0&room1=A%2CA%2CA%2CA%2CA%2C&sb_price_type=total&type=total&" class="property-link" target="_blank" rel="noopener">🔗 See the listing on Booking.com</a>
+            <div class="booking-screenshot">
+                <img src="images/images-your-house-podrit-promise/YourHouse _can_marques_villa.png" alt="Booking.com listing screenshot - YourHouse Can Marques Villa">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Documentation created to support vacation rental fraud claim</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            All photos taken upon arrival - unedited and timestamped
+        </p>
+    </footer>
+</body>
+</html>

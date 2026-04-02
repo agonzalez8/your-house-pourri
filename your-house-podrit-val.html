@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estafa en Lloguer Vacacional - El que van prometre vs El que vam trobar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .lang-nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-nav a {
+            color: #a4b0be;
+            text-decoration: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .lang-nav a.active {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .warning-banner {
+            background: linear-gradient(90deg, #ff4757 0%, #ff6b81 100%);
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 span {
+            color: #ff4757;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a4b0be;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .summary-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .issues-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .issue-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .issue-item::before {
+            content: "⚠️";
+            font-size: 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+        }
+
+        .promised h2 {
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .reality h2 {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .image-card .caption {
+            padding: 1rem;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .promised .image-card {
+            border: 2px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .reality .image-card {
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #ff6b81;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-side h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-side.promise h3 {
+            color: #2ecc71;
+        }
+
+        .comparison-side.got h3 {
+            color: #e74c3c;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            color: #a4b0be;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box a.property-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: background 0.2s;
+        }
+
+        .cta-box a.property-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .booking-screenshot {
+            margin-top: 1.5rem;
+        }
+
+        .booking-screenshot img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="lang-nav">
+        <a href="your-house-podrit.html">Français</a>
+        <a href="your-house-podrit-es.html">Español</a>
+        <a href="your-house-podrit-val.html" class="active">Valencià</a>
+        <a href="your-house-podrit-nl.html">Nederlands</a>
+        <a href="your-house-podrit-de.html">Deutsch</a>
+        <a href="your-house-podrit-ru.html">Русский</a>
+        <a href="your-house-podrit-en.html">English</a>
+    </nav>
+
+    <div class="warning-banner">
+        ⚠️ Alerta d'Estafa en Lloguer Vacacional - No Llogeu Aquesta Propietat ⚠️
+    </div>
+
+    <header>
+        <h1>Your House <span>Pourri</span></h1>
+        <p class="subtitle">
+            Vaig llogar el que pensava que era una bonica vila mediterrània per a les meues vacances.
+            En compte d'això, vaig arribar a una casa freda, humida, mal mantinguda, plena de gats de carrer
+            i amb perills elèctrics. Ací estan les meues proves documentades d'estafa en lloguer vacacional.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="summary-box">
+            <h2>Problemes Crítics Trobats en Arribar</h2>
+            <p>La propietat anunciada era completament enganyosa. Estos són els principals problemes descoberts:</p>
+            <div class="issues-list">
+                <div class="issue-item">Sense calefacció funcional - fred glacial</div>
+                <div class="issue-item">Greus danys per humitat per tota la casa</div>
+                <div class="issue-item">Pintura que es pela en parets i sostres</div>
+                <div class="issue-item">Gats de carrer per tota la propietat</div>
+                <div class="issue-item">Cablejat elèctric perillós exposat</div>
+                <div class="issue-item">Floridura als banys</div>
+                <div class="issue-item">Radiadors danyats / no funcionals</div>
+                <div class="issue-item">Sistema de climatització brut</div>
+                <div class="issue-item">Fort olor d'humitat per tot arreu</div>
+            </div>
+        </div>
+
+        <section class="promised">
+            <h2>✨ El Que Van Prometre - Les Fotos de l'Anunci</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Estes són les fotos de l'anunci de lloguer - una bonica vila mediterrània neta i moderna
+                amb habitacions espaioses, vistes a la piscina i tots els servicis en perfecte funcionament.
+            </p>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0226.PNG" alt="Saló promés">
+                    <div class="caption">Saló ampli i lluminós amb sofàs blancs nets, mobles moderns i terra de rajoles blanques impecable</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0227.PNG" alt="Zona d'estar promesa">
+                    <div class="caption">Zona d'estar i menjador diàfana amb decoració elegant i llum natural</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0228.PNG" alt="Dormitori promés">
+                    <div class="caption">Dormitori net i modern amb llençols nous, tauletes de nit i aire condicionat funcional</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0229.PNG" alt="Menjador promés">
+                    <div class="caption">Elegant menjador amb obres d'art a les parets i molt d'espai per a seure</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0230.PNG" alt="Saló amb llar de foc promés">
+                    <div class="caption">Saló amb llar de foc de pedra, zona d'entreteniment i vistes a la piscina</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0231.PNG" alt="Menjador amb vista a piscina promés">
+                    <div class="caption">Menjador amb impressionants vistes a la piscina i el jardí a través de grans finestrals</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0232.PNG" alt="Racó acollidor promés">
+                    <div class="caption">Zona d'estar acollidora amb llar de foc, seients còmodes i climatització funcional</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reality">
+            <h2>💀 El Que Realment Vam Trobar - L'Horrible Realitat</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Açò és el que vam trobar en arribar. La propietat estava en un estat d'abandó sever,
+                amb condicions perilloses que la feien inhabitable. Estes fotos van ser fetes immediatament en arribar.
+            </p>
+
+            <div class="category-section">
+                <h3>🌊 Humitat Severa i Danys per Aigua</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Tota la casa feia pudor d'humitat. Les parets i sostres mostraven extensos danys per aigua
+                    amb butllofes, pelat i esquerdes en la pintura - un perill sanitari que indica problemes de floridura.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/0e214178-3611-4162-9b34-05585e144272.JPG" alt="Dany per humitat en paret">
+                        <div class="caption">Greus danys per humitat en la paret del dormitori - pintura amb butllofes i pelant-se per la humitat</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/41aa2ff5-3fa8-48a6-b36f-4e179f5c012a.JPG" alt="Dany per aigua al sostre">
+                        <div class="caption">Sostre amb extensos danys per aigua - pintura amb butllofes indicant seriosos problemes de filtració</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c44e6579-95b5-4d79-942b-54a66ae1b523.JPG" alt="Paret pelant-se">
+                        <div class="caption">Paret amb pelat i esquerdes severes de la pintura pels danys d'humitat</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c8a73310-6adf-479e-b22a-ec75974a22ff.JPG" alt="Més danys en paret">
+                        <div class="caption">Danys addicionals en les parets mostrant infiltració d'humitat</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/dfc0289d-750f-4af4-abe9-271165fa3f6f.JPG" alt="Esquerdes en paret">
+                        <div class="caption">Esquerdes i pelat de pintura per tota la propietat</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/7420c99d-f012-4823-bd09-ec3b4d4d0764.JPG" alt="Paret apedaçada">
+                        <div class="caption">Paret mal apedaçada amb taques d'humitat visibles i canonades exposades</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/8500e283-9e6e-4d83-ab03-ca7d5c0cf411.JPG" alt="Paret tacada">
+                        <div class="caption">Paret tacada mostrant danys per humitat baix la zona de la finestra</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>⚡ Perills Elèctrics</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Múltiples instal·lacions elèctriques estaven danyades, exposades o no funcionaven -
+                    presentant greus riscos de seguretat.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2b04c60b-aefb-4e18-b7ec-f47cae73804c.JPG" alt="Caixa elèctrica exposada">
+                        <div class="caption">Caixa d'entroncament elèctric perillosament exposada al costat del llit - risc seriós d'electrocució</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/05ae22f7-fe41-42fa-b9fd-9e4c89dfee60.JPG" alt="Zona elèctrica danyada">
+                        <div class="caption">Zona elèctrica danyada prop del capçal del llit</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/54e79d9e-0805-4067-a08d-e62b5f036c10.JPG" alt="Interruptors bruts">
+                        <div class="caption">Interruptors bruts i groguencs que mostren anys d'abandó</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/976eb02b-475f-4e46-a495-b09c5e907224.JPG" alt="Endoll danyat">
+                        <div class="caption">Endoll danyat amb paret descascarillada i mala instal·lació</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b66e8776-6e01-4fed-8212-0b95ff00e1bb.JPG" alt="Endoll trencat">
+                        <div class="caption">Endoll trencat penjant de la paret - risc d'incendi</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>❄️ Sense Calefacció - Radiadors Trencats</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    La propietat estava gelada sense sistema de calefacció funcional.
+                    Les connexions dels radiadors estaven danyades i amb fugides.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/98b7a822-4c7b-4ad9-8dee-2cf8f05a25f3.JPG" alt="Radiador trencat">
+                        <div class="caption">Connexió de radiador danyada amb taques de rovell i paret que s'esmicola - no funciona</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e59b02d9-8731-4022-a0b3-b28fe671a9a9.JPG" alt="Unitat d'aire condicionat bruta">
+                        <div class="caption">Unitat d'aire condicionat bruta i groguenca amb filtres bruts - clarament sense manteniment</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚿 Banys Bruts amb Floridura</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Els banys estaven en mal estat amb floridura en les juntes,
+                    superfícies brutes i accessoris barats.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/19d382a8-0de5-4f02-b68d-fc3fc817bbb5.JPG" alt="Bany brut">
+                        <div class="caption">Taulell de bany brut amb floridura en les juntes</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/72ca0610-d80f-49c0-86c8-02994526d743.JPG" alt="Bany amb floridura">
+                        <div class="caption">Més superfícies de bany amb floridura i brutícia visibles</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2cb65080-80c1-4348-95f2-bb506a5b7680.JPG" alt="Dutxa bàsica">
+                        <div class="caption">Instal·lació de dutxa bàsica i barata - res a veure amb el luxe anunciat</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e57cb140-84ad-4b90-8385-d106d9d03a31.JPG" alt="Bany">
+                        <div class="caption">Accessoris de bany antiquats</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🐱 Gats de Carrer per Tot Arreu</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    La propietat estava envaïda per gats de carrer que es passejaven lliurement.
+                    Açò mai es va mencionar en l'anunci i suposa problemes d'higiene.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/74fbad76-0941-4bb5-a0f9-7bdf8c16a000.JPG" alt="Gats de carrer">
+                        <div class="caption">Gats de carrer rodant per la propietat de nit</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/869862e3-7f0e-4cba-b9f5-4d18cf6796fe.JPG" alt="Més gats">
+                        <div class="caption">Diversos gats de carrer al pati brut</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b08d0e9c-cbf0-4d39-a616-e6f642835fc1.JPG" alt="Gats al pati">
+                        <div class="caption">Gats per tot arreu sobre superfícies de formigó deteriorades</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚪 Mal Estat General</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    L'abandó general era visible per tot arreu - armaris desgastats, pintura pelada
+                    i un estat general de deteriorament.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/39232b3a-5af5-4123-ba51-6297022b2118.JPG" alt="Armaris vells">
+                        <div class="caption">Armaris grisos vells amb cadenats - emmagatzematge inaccessible</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Portes desgastades">
+                        <div class="caption">Portes d'armaris desgastades amb pintura pelada i marcs danyats</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h3>Açò És una Estafa en Lloguer Vacacional</h3>
+            <p style="margin-bottom: 1rem;">
+                La propietat anunciada no s'assembla en res al que es va entregar.
+                Esta documentació servix com a prova per a la resolució de disputes i per a advertir altres viatgers.
+            </p>
+            <p>
+                <strong>No llogueu aquesta propietat.</strong> Les fotos de l'anunci són d'una altra propietat
+                o van ser fetes fa anys abans que la propietat caiguera en complet deteriorament.
+            </p>
+            <a href="https://www.booking.com/hotel/es/yourhouse-can-marques-villa.fr.html?aid=898224&label=hotel_details-tvNjWOA%401775116548&sid=843f887a86e4b25ce9d8785265e10824&checkin=2026-04-02&checkout=2026-04-03&dist=0&from_sn=ios&group_adults=5&group_children=0&keep_landing=1&no_rooms=2&req_adults=5&req_children=0&room1=A%2CA%2CA%2CA%2CA%2C&sb_price_type=total&type=total&" class="property-link" target="_blank" rel="noopener">🔗 Veure l'anunci en Booking.com</a>
+            <div class="booking-screenshot">
+                <img src="images/images-your-house-podrit-promise/YourHouse _can_marques_villa.png" alt="Captura de pantalla de l'anunci en Booking.com - YourHouse Can Marques Villa">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Documentació creada per a recolzar la reclamació per estafa en lloguer vacacional</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            Totes les fotos fetes en arribar - sense editar i amb marca de temps
+        </p>
+    </footer>
+</body>
+</html>

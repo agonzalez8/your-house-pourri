@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vakantieverhuur Fraude - Wat ze beloofden vs Wat we kregen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .lang-nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-nav a {
+            color: #a4b0be;
+            text-decoration: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .lang-nav a.active {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .warning-banner {
+            background: linear-gradient(90deg, #ff4757 0%, #ff6b81 100%);
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 span {
+            color: #ff4757;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a4b0be;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .summary-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .issues-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .issue-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .issue-item::before {
+            content: "⚠️";
+            font-size: 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+        }
+
+        .promised h2 {
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .reality h2 {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .image-card .caption {
+            padding: 1rem;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .promised .image-card {
+            border: 2px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .reality .image-card {
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #ff6b81;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-side h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-side.promise h3 {
+            color: #2ecc71;
+        }
+
+        .comparison-side.got h3 {
+            color: #e74c3c;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            color: #a4b0be;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box a.property-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: background 0.2s;
+        }
+
+        .cta-box a.property-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .booking-screenshot {
+            margin-top: 1.5rem;
+        }
+
+        .booking-screenshot img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="lang-nav">
+        <a href="your-house-podrit.html">Français</a>
+        <a href="your-house-podrit-es.html">Español</a>
+        <a href="your-house-podrit-val.html">Valencià</a>
+        <a href="your-house-podrit-nl.html" class="active">Nederlands</a>
+        <a href="your-house-podrit-de.html">Deutsch</a>
+        <a href="your-house-podrit-ru.html">Русский</a>
+        <a href="your-house-podrit-en.html">English</a>
+    </nav>
+
+    <div class="warning-banner">
+        ⚠️ Waarschuwing Vakantieverhuur Fraude - Huur Dit Pand Niet ⚠️
+    </div>
+
+    <header>
+        <h1>Your House <span>Pourri</span></h1>
+        <p class="subtitle">
+            Ik huurde wat ik dacht dat een prachtige mediterrane villa was voor mijn vakantie.
+            In plaats daarvan kwam ik aan in een koud, vochtig, slecht onderhouden huis vol zwerfkatten
+            en gevaarlijke elektrische gevaren. Dit is mijn gedocumenteerd bewijs van vakantieverhuur fraude.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="summary-box">
+            <h2>Kritieke Problemen Vastgesteld bij Aankomst</h2>
+            <p>Het geadverteerde pand was volledig misleidend. Dit zijn de belangrijkste problemen die werden ontdekt:</p>
+            <div class="issues-list">
+                <div class="issue-item">Geen werkende verwarming - ijskoud</div>
+                <div class="issue-item">Ernstige vochtschade overal</div>
+                <div class="issue-item">Afbladderende verf op muren en plafonds</div>
+                <div class="issue-item">Zwerfkatten overal op het terrein</div>
+                <div class="issue-item">Gevaarlijke blootliggende elektrische bedrading</div>
+                <div class="issue-item">Schimmel in de badkamers</div>
+                <div class="issue-item">Beschadigde / niet-functionerende radiatoren</div>
+                <div class="issue-item">Smerig airconditioningsysteem</div>
+                <div class="issue-item">Sterke vochtgeur overal</div>
+            </div>
+        </div>
+
+        <section class="promised">
+            <h2>✨ Wat Ze Beloofden - De Foto's van de Advertentie</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Dit zijn de foto's uit de huuradvertentie - een mooie, schone, moderne mediterrane villa
+                met ruime kamers, uitzicht op het zwembad en alle voorzieningen in perfecte staat.
+            </p>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0226.PNG" alt="Beloofde woonkamer">
+                    <div class="caption">Ruime, lichte woonkamer met schone witte banken, modern meubilair en onberispelijke witte tegelvloeren</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0227.PNG" alt="Beloofde leefruimte">
+                    <div class="caption">Open woon- en eetruimte met elegante inrichting en natuurlijk licht</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0228.PNG" alt="Beloofde slaapkamer">
+                    <div class="caption">Schone, moderne slaapkamer met fris beddengoed, nachtkastjes en werkende airconditioning</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0229.PNG" alt="Beloofde eetkamer">
+                    <div class="caption">Elegante eetkamer met kunst aan de muren en ruime zitplaatsen</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0230.PNG" alt="Beloofde woonkamer met open haard">
+                    <div class="caption">Woonkamer met stenen open haard, entertainmenthoek en uitzicht op het zwembad</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0231.PNG" alt="Beloofde eetkamer met zwembaduitzicht">
+                    <div class="caption">Eetkamer met prachtig uitzicht op het zwembad en de tuin door grote ramen</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0232.PNG" alt="Beloofde gezellige hoek">
+                    <div class="caption">Gezellige zithoek met open haard, comfortabele zitplaatsen en werkende klimaatbeheersing</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reality">
+            <h2>💀 Wat We Werkelijk Kregen - De Afschuwelijke Werkelijkheid</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Dit is wat we aantroffen bij aankomst. Het pand verkeerde in een staat van ernstige verwaarlozing,
+                met gevaarlijke omstandigheden die het onbewoonbaar maakten. Deze foto's werden onmiddellijk bij aankomst genomen.
+            </p>
+
+            <div class="category-section">
+                <h3>🌊 Ernstige Vocht- & Waterschade</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Het hele huis stonk naar vocht. Muren en plafonds vertoonden uitgebreide waterschade
+                    met bellen, afbladdering en scheuren in de verf - een gezondheidsrisico dat wijst op schimmelproblemen.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/0e214178-3611-4162-9b34-05585e144272.JPG" alt="Vochtschade op muur">
+                        <div class="caption">Ernstige vochtschade op slaapkamermuur - verf met bellen en afbladderd door vocht</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/41aa2ff5-3fa8-48a6-b36f-4e179f5c012a.JPG" alt="Waterschade plafond">
+                        <div class="caption">Plafond met uitgebreide waterschade - bladderende verf wijst op ernstige lekkageproblemen</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c44e6579-95b5-4d79-942b-54a66ae1b523.JPG" alt="Afbladderende muur">
+                        <div class="caption">Muur met ernstig afbladderende en scheurende verf door vochtschade</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c8a73310-6adf-479e-b22a-ec75974a22ff.JPG" alt="Meer muurschade">
+                        <div class="caption">Extra muurschade die vochtinfiltratie toont</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/dfc0289d-750f-4af4-abe9-271165fa3f6f.JPG" alt="Scheuren in muur">
+                        <div class="caption">Scheuren en afbladderende verf door het hele pand</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/7420c99d-f012-4823-bd09-ec3b4d4d0764.JPG" alt="Opgelapte muur">
+                        <div class="caption">Slecht opgelapte muur met zichtbare vochtvlekken en blootliggende leidingen</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/8500e283-9e6e-4d83-ab03-ca7d5c0cf411.JPG" alt="Bevlekte muur">
+                        <div class="caption">Bevlekte muur met vochtschade onder het raamgebied</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>⚡ Gevaarlijke Elektrische Situaties</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Meerdere elektrische installaties waren beschadigd, blootliggend of niet-functionerend -
+                    met ernstige veiligheidsrisico's.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2b04c60b-aefb-4e18-b7ec-f47cae73804c.JPG" alt="Blootliggende elektriciteitskast">
+                        <div class="caption">Gevaarlijk blootliggende elektrische aansluitdoos naast het bed - ernstig risico op elektrocutie</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/05ae22f7-fe41-42fa-b9fd-9e4c89dfee60.JPG" alt="Beschadigde elektrische zone">
+                        <div class="caption">Beschadigd elektrisch gebied bij het hoofdeinde van het bed</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/54e79d9e-0805-4067-a08d-e62b5f036c10.JPG" alt="Vuile schakelaars">
+                        <div class="caption">Smerige, vergeelde lichtschakelaars die jaren van verwaarlozing tonen</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/976eb02b-475f-4e46-a495-b09c5e907224.JPG" alt="Beschadigd stopcontact">
+                        <div class="caption">Beschadigd stopcontact met afgebrokkelde muur en slechte installatie</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b66e8776-6e01-4fed-8212-0b95ff00e1bb.JPG" alt="Kapot stopcontact">
+                        <div class="caption">Kapot stopcontact dat uit de muur hangt - brandgevaar</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>❄️ Geen Verwarming - Kapotte Radiatoren</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Het pand was ijskoud zonder werkend verwarmingssysteem.
+                    Radiatoraansluitingen waren beschadigd en lekten.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/98b7a822-4c7b-4ad9-8dee-2cf8f05a25f3.JPG" alt="Kapotte radiator">
+                        <div class="caption">Beschadigde radiatoraansluiting met roestvlekken en afbrokkelende muur - niet werkend</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e59b02d9-8731-4022-a0b3-b28fe671a9a9.JPG" alt="Vuile airco">
+                        <div class="caption">Smerige, vergeelde airconditioningunit met vuile filters - duidelijk niet onderhouden</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚿 Vuile Badkamers met Schimmel</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Badkamers waren in slechte staat met schimmel in voegen,
+                    vuile oppervlakken en goedkope armaturen.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/19d382a8-0de5-4f02-b68d-fc3fc817bbb5.JPG" alt="Vuile badkamer">
+                        <div class="caption">Vuil badkamerblad met schimmel in de voegen</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/72ca0610-d80f-49c0-86c8-02994526d743.JPG" alt="Beschimmelde badkamer">
+                        <div class="caption">Meer badkameroppervlakken met zichtbare schimmel en vuil</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2cb65080-80c1-4348-95f2-bb506a5b7680.JPG" alt="Eenvoudige douche">
+                        <div class="caption">Eenvoudige, goedkope doucheopstelling - niets zoals de geadverteerde luxe</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e57cb140-84ad-4b90-8385-d106d9d03a31.JPG" alt="Badkamer">
+                        <div class="caption">Verouderde badkamerarmaturen</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🐱 Overal Zwerfkatten</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Het terrein werd overspoeld door zwerfkatten die vrij rondliepen.
+                    Dit werd nooit vermeld in de advertentie en levert hygiëneproblemen op.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/74fbad76-0941-4bb5-a0f9-7bdf8c16a000.JPG" alt="Zwerfkatten">
+                        <div class="caption">Zwerfkatten die 's nachts over het terrein zwerven</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/869862e3-7f0e-4cba-b9f5-4d18cf6796fe.JPG" alt="Meer katten">
+                        <div class="caption">Meerdere zwerfkatten op het vuile terras</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b08d0e9c-cbf0-4d39-a616-e6f642835fc1.JPG" alt="Katten op terras">
+                        <div class="caption">Overal katten op verweerde betonnen oppervlakken</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚪 Slechte Algemene Staat</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Algemene verwaarlozing was overal zichtbaar - versleten kasten, afgebladderde verf
+                    en een algehele staat van verval.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/39232b3a-5af5-4123-ba51-6297022b2118.JPG" alt="Oude kasten">
+                        <div class="caption">Oude grijze kasten met hangsloten - ontoegankelijke opbergruimte</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Versleten deuren">
+                        <div class="caption">Versleten kastdeuren met afgebladderde verf en beschadigde kozijnen</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h3>Dit Is Vakantieverhuur Fraude</h3>
+            <p style="margin-bottom: 1rem;">
+                Het geadverteerde pand lijkt in niets op wat werd geleverd.
+                Deze documentatie dient als bewijs voor geschillenbeslechting en om andere reizigers te waarschuwen.
+            </p>
+            <p>
+                <strong>Huur dit pand niet.</strong> De advertentiefoto's zijn van een ander pand
+                of jaren geleden genomen voordat het pand in volledig verval raakte.
+            </p>
+            <a href="https://www.booking.com/hotel/es/yourhouse-can-marques-villa.fr.html?aid=898224&label=hotel_details-tvNjWOA%401775116548&sid=843f887a86e4b25ce9d8785265e10824&checkin=2026-04-02&checkout=2026-04-03&dist=0&from_sn=ios&group_adults=5&group_children=0&keep_landing=1&no_rooms=2&req_adults=5&req_children=0&room1=A%2CA%2CA%2CA%2CA%2C&sb_price_type=total&type=total&" class="property-link" target="_blank" rel="noopener">🔗 Bekijk de advertentie op Booking.com</a>
+            <div class="booking-screenshot">
+                <img src="images/images-your-house-podrit-promise/YourHouse _can_marques_villa.png" alt="Screenshot van de Booking.com advertentie - YourHouse Can Marques Villa">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Documentatie opgesteld ter ondersteuning van de klacht wegens vakantieverhuur fraude</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            Alle foto's genomen bij aankomst - onbewerkt en voorzien van tijdstempel
+        </p>
+    </footer>
+</body>
+</html>

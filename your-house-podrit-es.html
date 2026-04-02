@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estafa en Alquiler Vacacional - Lo que prometieron vs Lo que encontramos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .lang-nav {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 0.5rem 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-nav a {
+            color: #a4b0be;
+            text-decoration: none;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .lang-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .lang-nav a.active {
+            background: #ff4757;
+            color: #fff;
+        }
+
+        .warning-banner {
+            background: linear-gradient(90deg, #ff4757 0%, #ff6b81 100%);
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 span {
+            color: #ff4757;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a4b0be;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(231, 76, 60, 0.3);
+        }
+
+        .summary-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .issues-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .issue-item {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .issue-item::before {
+            content: "⚠️";
+            font-size: 1.5rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+        }
+
+        .promised h2 {
+            border-color: #2ecc71;
+            color: #2ecc71;
+        }
+
+        .reality h2 {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .image-card .caption {
+            padding: 1rem;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+
+        .promised .image-card {
+            border: 2px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .reality .image-card {
+            border: 2px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+        }
+
+        .category-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #ff6b81;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comparison-side h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-side.promise h3 {
+            color: #2ecc71;
+        }
+
+        .comparison-side.got h3 {
+            color: #e74c3c;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem;
+            text-align: center;
+            color: #a4b0be;
+        }
+
+        .cta-box {
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-box a.property-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            transition: background 0.2s;
+        }
+
+        .cta-box a.property-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .booking-screenshot {
+            margin-top: 1.5rem;
+        }
+
+        .booking-screenshot img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-2px); }
+            75% { transform: translateX(2px); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="lang-nav">
+        <a href="your-house-podrit.html">Français</a>
+        <a href="your-house-podrit-es.html" class="active">Español</a>
+        <a href="your-house-podrit-val.html">Valencià</a>
+        <a href="your-house-podrit-nl.html">Nederlands</a>
+        <a href="your-house-podrit-de.html">Deutsch</a>
+        <a href="your-house-podrit-ru.html">Русский</a>
+        <a href="your-house-podrit-en.html">English</a>
+    </nav>
+
+    <div class="warning-banner">
+        ⚠️ Alerta de Estafa en Alquiler Vacacional - No Alquile Esta Propiedad ⚠️
+    </div>
+
+    <header>
+        <h1>Your House <span>Pourri</span></h1>
+        <p class="subtitle">
+            Alquilé lo que pensaba que era una hermosa villa mediterránea para mis vacaciones.
+            En su lugar, llegué a una casa fría, húmeda, mal mantenida, plagada de gatos callejeros
+            y con peligros eléctricos. Estas son mis pruebas documentadas de estafa en alquiler vacacional.
+        </p>
+    </header>
+
+    <div class="container">
+        <div class="summary-box">
+            <h2>Problemas Críticos Encontrados al Llegar</h2>
+            <p>La propiedad anunciada era completamente engañosa. Estos son los principales problemas descubiertos:</p>
+            <div class="issues-list">
+                <div class="issue-item">Sin calefacción funcional - frío glacial</div>
+                <div class="issue-item">Graves daños por humedad en toda la casa</div>
+                <div class="issue-item">Pintura descascarada en paredes y techos</div>
+                <div class="issue-item">Gatos callejeros por toda la propiedad</div>
+                <div class="issue-item">Cableado eléctrico peligroso expuesto</div>
+                <div class="issue-item">Moho en los baños</div>
+                <div class="issue-item">Radiadores dañados / no funcionales</div>
+                <div class="issue-item">Sistema de climatización sucio</div>
+                <div class="issue-item">Fuerte olor a humedad por todas partes</div>
+            </div>
+        </div>
+
+        <section class="promised">
+            <h2>✨ Lo Que Prometieron - Las Fotos del Anuncio</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Estas son las fotos del anuncio de alquiler - una hermosa villa mediterránea limpia y moderna
+                con habitaciones espaciosas, vistas a la piscina y todos los servicios en perfecto funcionamiento.
+            </p>
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0226.PNG" alt="Salón prometido">
+                    <div class="caption">Salón amplio y luminoso con sofás blancos limpios, muebles modernos y suelo de baldosas blancas impecable</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0227.PNG" alt="Zona de estar prometida">
+                    <div class="caption">Zona de estar y comedor diáfana con decoración elegante y luz natural</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0228.PNG" alt="Dormitorio prometido">
+                    <div class="caption">Dormitorio limpio y moderno con ropa de cama nueva, mesitas de noche y aire acondicionado funcional</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0229.PNG" alt="Comedor prometido">
+                    <div class="caption">Elegante comedor con obras de arte en las paredes y amplio espacio para sentarse</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0230.PNG" alt="Salón con chimenea prometido">
+                    <div class="caption">Salón con chimenea de piedra, zona de entretenimiento y vistas a la piscina</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0231.PNG" alt="Comedor con vista a piscina prometido">
+                    <div class="caption">Comedor con impresionantes vistas a la piscina y el jardín a través de grandes ventanales</div>
+                </div>
+                <div class="image-card">
+                    <img src="images/images-your-house-podrit-promise/IMG_0232.PNG" alt="Rincón acogedor prometido">
+                    <div class="caption">Zona de estar acogedora con chimenea, asientos cómodos y climatización funcional</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reality">
+            <h2>💀 Lo Que Realmente Encontramos - La Horrible Realidad</h2>
+            <p style="margin-bottom: 2rem; color: #a4b0be;">
+                Esto es lo que encontramos al llegar. La propiedad estaba en un estado de abandono severo,
+                con condiciones peligrosas que la hacían inhabitable. Estas fotos fueron tomadas inmediatamente al llegar.
+            </p>
+
+            <div class="category-section">
+                <h3>🌊 Humedad Severa y Daños por Agua</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Toda la casa apestaba a humedad. Las paredes y techos mostraban extensos daños por agua
+                    con ampollas, descascarillado y grietas en la pintura - un peligro sanitario que indica problemas de moho.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/0e214178-3611-4162-9b34-05585e144272.JPG" alt="Daño por humedad en pared">
+                        <div class="caption">Graves daños por humedad en la pared del dormitorio - pintura con ampollas y descascarillada por la humedad</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/41aa2ff5-3fa8-48a6-b36f-4e179f5c012a.JPG" alt="Daño por agua en techo">
+                        <div class="caption">Techo con extensos daños por agua - pintura ampollada indicando serios problemas de filtración</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c44e6579-95b5-4d79-942b-54a66ae1b523.JPG" alt="Pared descascarillada">
+                        <div class="caption">Pared con descascarillado y agrietamiento severo de la pintura por daños de humedad</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/c8a73310-6adf-479e-b22a-ec75974a22ff.JPG" alt="Más daños en pared">
+                        <div class="caption">Daños adicionales en las paredes mostrando infiltración de humedad</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/dfc0289d-750f-4af4-abe9-271165fa3f6f.JPG" alt="Grietas en pared">
+                        <div class="caption">Grietas y descascarillado de pintura por toda la propiedad</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/7420c99d-f012-4823-bd09-ec3b4d4d0764.JPG" alt="Pared parcheada">
+                        <div class="caption">Pared mal parcheada con manchas de humedad visibles y tuberías expuestas</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/8500e283-9e6e-4d83-ab03-ca7d5c0cf411.JPG" alt="Pared manchada">
+                        <div class="caption">Pared manchada mostrando daños por humedad bajo la zona de la ventana</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>⚡ Peligros Eléctricos</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Múltiples instalaciones eléctricas estaban dañadas, expuestas o no funcionaban -
+                    presentando graves riesgos de seguridad.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2b04c60b-aefb-4e18-b7ec-f47cae73804c.JPG" alt="Caja eléctrica expuesta">
+                        <div class="caption">Caja de empalme eléctrico peligrosamente expuesta junto a la cama - riesgo serio de electrocución</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/05ae22f7-fe41-42fa-b9fd-9e4c89dfee60.JPG" alt="Zona eléctrica dañada">
+                        <div class="caption">Zona eléctrica dañada cerca del cabecero de la cama</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/54e79d9e-0805-4067-a08d-e62b5f036c10.JPG" alt="Interruptores sucios">
+                        <div class="caption">Interruptores sucios y amarillentos que muestran años de abandono</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/976eb02b-475f-4e46-a495-b09c5e907224.JPG" alt="Enchufe dañado">
+                        <div class="caption">Enchufe dañado con pared descascarillada y mala instalación</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b66e8776-6e01-4fed-8212-0b95ff00e1bb.JPG" alt="Enchufe roto">
+                        <div class="caption">Enchufe roto colgando de la pared - riesgo de incendio</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>❄️ Sin Calefacción - Radiadores Rotos</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    La propiedad estaba helada sin sistema de calefacción funcional.
+                    Las conexiones de los radiadores estaban dañadas y con fugas.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/98b7a822-4c7b-4ad9-8dee-2cf8f05a25f3.JPG" alt="Radiador roto">
+                        <div class="caption">Conexión de radiador dañada con manchas de óxido y pared desmoronándose - no funciona</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e59b02d9-8731-4022-a0b3-b28fe671a9a9.JPG" alt="Unidad de aire acondicionado sucia">
+                        <div class="caption">Unidad de aire acondicionado sucia y amarillenta con filtros sucios - claramente sin mantenimiento</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚿 Baños Sucios con Moho</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    Los baños estaban en mal estado con moho en las juntas,
+                    superficies sucias y accesorios baratos.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/19d382a8-0de5-4f02-b68d-fc3fc817bbb5.JPG" alt="Baño sucio">
+                        <div class="caption">Encimera de baño sucia con moho en las juntas</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/72ca0610-d80f-49c0-86c8-02994526d743.JPG" alt="Baño con moho">
+                        <div class="caption">Más superficies de baño con moho y suciedad visibles</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/2cb65080-80c1-4348-95f2-bb506a5b7680.JPG" alt="Ducha básica">
+                        <div class="caption">Instalación de ducha básica y barata - nada que ver con el lujo anunciado</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e57cb140-84ad-4b90-8385-d106d9d03a31.JPG" alt="Baño">
+                        <div class="caption">Accesorios de baño anticuados</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🐱 Gatos Callejeros por Todas Partes</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    La propiedad estaba invadida por gatos callejeros que deambulaban libremente.
+                    Esto nunca se mencionó en el anuncio y supone problemas de higiene.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/74fbad76-0941-4bb5-a0f9-7bdf8c16a000.JPG" alt="Gatos callejeros">
+                        <div class="caption">Gatos callejeros merodeando por la propiedad de noche</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/869862e3-7f0e-4cba-b9f5-4d18cf6796fe.JPG" alt="Más gatos">
+                        <div class="caption">Varios gatos callejeros en el patio sucio</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/b08d0e9c-cbf0-4d39-a616-e6f642835fc1.JPG" alt="Gatos en el patio">
+                        <div class="caption">Gatos por todas partes sobre superficies de hormigón deterioradas</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3>🚪 Mal Estado General</h3>
+                <p style="margin-bottom: 1.5rem; color: #a4b0be;">
+                    El abandono general era visible por todas partes - armarios desgastados, pintura descascarillada
+                    y un estado general de deterioro.
+                </p>
+                <div class="image-grid">
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/39232b3a-5af5-4123-ba51-6297022b2118.JPG" alt="Armarios viejos">
+                        <div class="caption">Armarios grises viejos con candados - almacenamiento inaccesible</div>
+                    </div>
+                    <div class="image-card">
+                        <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Puertas desgastadas">
+                        <div class="caption">Puertas de armarios desgastadas con pintura descascarillada y marcos dañados</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-box">
+            <h3>Esto Es una Estafa en Alquiler Vacacional</h3>
+            <p style="margin-bottom: 1rem;">
+                La propiedad anunciada no se parece en nada a lo que se entregó.
+                Esta documentación sirve como prueba para la resolución de disputas y para advertir a otros viajeros.
+            </p>
+            <p>
+                <strong>No alquile esta propiedad.</strong> Las fotos del anuncio son de otra propiedad
+                o fueron tomadas hace años antes de que la propiedad cayera en completo deterioro.
+            </p>
+            <a href="https://www.booking.com/hotel/es/yourhouse-can-marques-villa.fr.html?aid=898224&label=hotel_details-tvNjWOA%401775116548&sid=843f887a86e4b25ce9d8785265e10824&checkin=2026-04-02&checkout=2026-04-03&dist=0&from_sn=ios&group_adults=5&group_children=0&keep_landing=1&no_rooms=2&req_adults=5&req_children=0&room1=A%2CA%2CA%2CA%2CA%2C&sb_price_type=total&type=total&" class="property-link" target="_blank" rel="noopener">🔗 Ver el anuncio en Booking.com</a>
+            <div class="booking-screenshot">
+                <img src="images/images-your-house-podrit-promise/YourHouse _can_marques_villa.png" alt="Captura de pantalla del anuncio en Booking.com - YourHouse Can Marques Villa">
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Documentación creada para respaldar la reclamación por estafa en alquiler vacacional</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            Todas las fotos tomadas al llegar - sin editar y con marca de tiempo
+        </p>
+    </footer>
+</body>
+</html>
