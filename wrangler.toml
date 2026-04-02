@@ -3,3 +3,8 @@ compatibility_date = "2026-04-02"
 
 [assets]
 directory = "./"
+
+routes = [
+  { pattern = "palma-pourri.org/*", custom_domain = true },
+  { pattern = "www.palma-pourri.org/*", custom_domain = true }
+]
