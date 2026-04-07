@@ -296,6 +296,93 @@
             25% { transform: translateX(-2px); }
             75% { transform: translateX(2px); }
         }
+
+        .timeline-section {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #f39c12;
+            color: #f39c12;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #f39c12 0%, #e74c3c 100%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid #f39c12;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 1.8rem;
+            width: 12px;
+            height: 12px;
+            background: #f39c12;
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+        }
+
+        .timeline-item.important {
+            border-left-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .timeline-item.important::before {
+            background: #e74c3c;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #f39c12;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item.important .timeline-date {
+            color: #e74c3c;
+        }
+
+        .timeline-content {
+            color: #ddd;
+        }
+
+        .timeline-content strong {
+            color: #fff;
+        }
+
+        .legal-notice {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(231, 76, 60, 0.2);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(231, 76, 60, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -533,6 +620,43 @@
                     <div class="image-card">
                         <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Versleten deuren">
                         <div class="caption">Versleten kastdeuren met afgebladderde verf en beschadigde kozijnen</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section">
+            <h2>📅 Tijdlijn van Gebeurtenissen</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1 April 2026</div>
+                    <div class="timeline-content">
+                        <strong>Terugbetaling geweigerd - Supportticket geopend</strong>
+                        <p>Na het ontdekken van de verschrikkelijke staat van het pand, vroegen we onmiddellijk om terugbetaling. Het verzoek werd afgewezen. Er werd een supportticket geopend om het probleem te escaleren.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2 April 2026</div>
+                    <div class="timeline-content">
+                        <strong>Administratie "op vakantie"</strong>
+                        <p>We kregen te horen dat het administratieteam op vakantie was en onze klacht niet kon verwerken. Handige timing tijdens een vakantieperiode.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2 April 2026</div>
+                    <div class="timeline-content">
+                        <strong>Geen advocaat bereikbaar</strong>
+                        <p>We probeerden contact op te nemen met een advocaat voor juridisch advies, maar het was onmogelijk - het was een feestdag in Spanje en alle kantoren waren gesloten.</p>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="timeline-date">2 April 2026</div>
+                    <div class="timeline-content">
+                        <strong>Politierapport ingediend</strong>
+                        <p>We gingen naar het politiebureau om aangifte te doen.</p>
+                        <div class="legal-notice">
+                            <strong>⚠️ Belangrijke juridische informatie:</strong> Volgens de Spaanse wet wordt dit <strong>niet als fraude beschouwd</strong> omdat het pand fysiek bestaat. De politie legde uit dat juridisch gezien "de dienst simpelweg niet aan onze verwachtingen voldeed." Dit betekent dat er zeer beperkte juridische mogelijkheden zijn voor zulke gevallen, waardoor het des te belangrijker is om andere reizigers te waarschuwen.
+                        </div>
                     </div>
                 </div>
             </div>

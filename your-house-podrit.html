@@ -307,6 +307,93 @@
             25% { transform: translateX(-2px); }
             75% { transform: translateX(2px); }
         }
+
+        .timeline-section {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #f39c12;
+            color: #f39c12;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #f39c12 0%, #e74c3c 100%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border-left: 3px solid #f39c12;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 1.8rem;
+            width: 12px;
+            height: 12px;
+            background: #f39c12;
+            border-radius: 50%;
+            border: 3px solid #1a1a2e;
+        }
+
+        .timeline-item.important {
+            border-left-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        .timeline-item.important::before {
+            background: #e74c3c;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #f39c12;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item.important .timeline-date {
+            color: #e74c3c;
+        }
+
+        .timeline-content {
+            color: #ddd;
+        }
+
+        .timeline-content strong {
+            color: #fff;
+        }
+
+        .legal-notice {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(231, 76, 60, 0.2);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(231, 76, 60, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -544,6 +631,43 @@
                     <div class="image-card">
                         <img src="images/images-your-house-podrit-what-we-got/e54bca94-90db-46e8-af27-63a8c5a5ad4f.JPG" alt="Portes usées">
                         <div class="caption">Portes de placards usées avec peinture écaillée et cadres endommagés</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section">
+            <h2>📅 Chronologie des Événements</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">1er Avril 2026</div>
+                    <div class="timeline-content">
+                        <strong>Remboursement refusé - Ticket de support ouvert</strong>
+                        <p>Après avoir découvert l'état déplorable de la propriété, nous avons immédiatement demandé un remboursement. La demande a été refusée. Un ticket de support a été ouvert pour escalader le problème.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2 Avril 2026</div>
+                    <div class="timeline-content">
+                        <strong>L'administration "en vacances"</strong>
+                        <p>On nous a dit que l'équipe administrative était en vacances et ne pouvait pas traiter notre plainte. Un timing pratique pendant une période de fêtes.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2 Avril 2026</div>
+                    <div class="timeline-content">
+                        <strong>Impossible de contacter un avocat</strong>
+                        <p>Nous avons tenté de contacter un avocat pour obtenir des conseils juridiques, mais c'était impossible - c'était un jour férié en Espagne et tous les cabinets étaient fermés.</p>
+                    </div>
+                </div>
+                <div class="timeline-item important">
+                    <div class="timeline-date">2 Avril 2026</div>
+                    <div class="timeline-content">
+                        <strong>Dépôt de plainte à la police</strong>
+                        <p>Nous sommes allés au commissariat pour déposer une plainte.</p>
+                        <div class="legal-notice">
+                            <strong>⚠️ Information juridique importante :</strong> Selon la loi espagnole, puisque la propriété existe physiquement, ceci <strong>n'est pas considéré comme une fraude</strong>. La police nous a expliqué que légalement, "le service n'a simplement pas répondu à nos attentes." Cela signifie qu'il y a très peu de recours juridiques pour des cas comme celui-ci, ce qui rend d'autant plus important d'avertir les autres voyageurs.
+                        </div>
                     </div>
                 </div>
             </div>
